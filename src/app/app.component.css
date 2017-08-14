@@ -1,0 +1,24 @@
+:host {
+  display: flex;
+  flex: 1;
+}
+
+md-sidenav {
+  width: 25%;
+}
+
+.avatar {
+  overflow: hidden;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin: 12px;
+}
+ 
+/deep/ .mat-list-item-content {
+  height: auto !important;
+} 
+
+.content {
+  padding: 12px;
+}

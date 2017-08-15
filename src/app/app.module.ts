@@ -3,15 +3,18 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import {HttpModule} from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdToolbarModule, MdListModule, MdIconModule, MdDialogModule } from '@angular/material';
+import { MdToolbarModule, MdListModule, MdIconModule, MdButtonModule, MdDialogModule, MdDialogRef, MdInputModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { UserService } from './user.service';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -21,10 +24,14 @@ import { UserService } from './user.service';
     MdToolbarModule,
     MdListModule,
     MdIconModule,
+    MdButtonModule,
     MdDialogModule,
-    FlexLayoutModule
+    MdInputModule,
+    FlexLayoutModule,
+    FormsModule
   ],
   providers: [UserService],
+  entryComponents: [DialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

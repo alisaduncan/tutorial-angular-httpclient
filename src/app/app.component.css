@@ -14,10 +14,6 @@ md-sidenav {
   border-radius: 50%;
   margin: 12px;
 }
- 
-/deep/ .mat-list-item-content {
-  height: auto !important;
-} 
 
 .content {
   padding: 12px;

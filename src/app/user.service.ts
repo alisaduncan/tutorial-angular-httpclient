@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/catch'; 
+
 
 import { User } from './user';
 
 @Injectable()
 export class UserService {
-  private apiEndpoint = 'https://jsonplaceholder.typicode.com/users';
+  public apiEndpoint = 'https://jsonplaceholder.typicode.com/users';
 
   constructor(private http: HttpClient) { }
 
@@ -15,12 +18,10 @@ export class UserService {
     return this.http.get<Array<any>>(this.apiEndpoint, {
       headers: new HttpHeaders().set('Accept', 'application/json')
     })
-    .map(body => {
-      return body.filter(user => user['id'] <= 5);
-    })
     .map(this.mapUsers)
-    .catch( error => Observable.throw(error))
-
+    .catch( error => {
+      return Observable.throw('An error occurred');
+    });
   }
 
   public addUser(user: User): Observable<User> {
@@ -41,12 +42,15 @@ export class UserService {
         bs: response.company.bs
       }
     })
-    .catch(error => Observable.throw(error));
+    .catch(error => {
+      return Observable.throw('An error occurred')
+    });
   }
 
   private mapUsers(body: Array<any>) {
+    let filteredBody = body.filter(user => user['id'] <= 5);
     let users: User[] = [];
-    body.forEach(element => {
+    filteredBody.forEach(element => {
       users.push({
         id: element.id,
         name: element.name,

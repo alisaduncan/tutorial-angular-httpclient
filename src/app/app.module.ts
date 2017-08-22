@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { UserService } from './user.service';
+import { AuthService } from './auth.service';
 import { DialogComponent } from './dialog/dialog.component';
 import { AuthInterceptor } from './auth.interceptor';
 
@@ -31,7 +32,7 @@ import { AuthInterceptor } from './auth.interceptor';
     FlexLayoutModule,
     FormsModule
   ],
-  providers: [UserService,
+  providers: [UserService, AuthService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

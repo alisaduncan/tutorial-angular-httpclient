@@ -6,18 +6,12 @@ import 'rxjs/add/observable/of';
 
 import { UserService } from './user.service';
 import { User } from './user';
-import { AuthInterceptor } from './auth.interceptor';
 
 describe('UserService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [UserService,
-        {
-          provide: HTTP_INTERCEPTORS,
-          useClass: AuthInterceptor,
-          multi: true
-        }]
+      providers: [UserService]
     });
   });
 
@@ -52,9 +46,7 @@ describe('UserService', () => {
         }
       );
 
-      const req = httpMock.expectOne((req) => {
-        return req.url === userService.apiEndpoint && req.headers.has('Authorization')
-      });
+      const req = httpMock.expectOne(userService.apiEndpoint);
       expect(req.request.method).toEqual('GET');
 
       req.flush(mockResponse);
@@ -88,9 +80,7 @@ describe('UserService', () => {
         }
       );
 
-      const req = httpMock.expectOne((req) => {
-        return req.url === userService.apiEndpoint && req.headers.has('Authorization')
-      });
+      const req = httpMock.expectOne(userService.apiEndpoint);
       expect(req.request.method).toEqual('GET');
 
       req.flush(mockResponse);
@@ -108,9 +98,7 @@ describe('UserService', () => {
       })
       .subscribe();
 
-      const req = httpMock.expectOne((req) => {
-        return req.url === userService.apiEndpoint && req.headers.has('Authorization')
-      });
+      const req = httpMock.expectOne(userService.apiEndpoint);
       expect(req.request.method).toEqual('GET');
 
       req.flush({errorMessage: 'Uh oh!'}, { status: 500, statusText: 'Server Error'});
@@ -146,9 +134,7 @@ describe('adding a new user', () => {
         }
       );
 
-      const req = httpMock.expectOne((req) => {
-        return req.url === userService.apiEndpoint && req.headers.has('Authorization') && req.headers.has('Accept')
-      });
+      const req = httpMock.expectOne((req) => req.url === userService.apiEndpoint && req.headers.has('Content-Type'));
       expect(req.request.method).toEqual('POST');
 
       req.flush(mockResponse);
@@ -173,9 +159,7 @@ describe('adding a new user', () => {
       })
       .subscribe();
 
-      const req = httpMock.expectOne((req) => {
-        return req.url === userService.apiEndpoint && req.headers.has('Authorization') && req.headers.has('Accept')
-      });
+      const req = httpMock.expectOne((req) => req.url === userService.apiEndpoint && req.headers.has('Content-Type'));
       expect(req.request.method).toEqual('POST');
 
       req.flush({errorMessage: 'Uh oh!'}, { status: 500, statusText: 'Server Error'});

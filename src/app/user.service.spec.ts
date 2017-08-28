@@ -153,8 +153,7 @@ describe('adding a new user', () => {
       userService.addUser(expectedResult)
       .catch(actualError => {
         expect(Observable.of(actualError)).toBeTruthy();
-        expect(actualError).not.toBeNull;
-        expect(actualError).not.toBeUndefined;
+        expect(actualError).toBeTruthy();
         return Observable.of(actualError);
       })
       .subscribe();

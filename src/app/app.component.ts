@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   private selectedUser: User = new User;
 
   constructor(iconRegistry: MdIconRegistry, sanitizer: DomSanitizer, private userService: UserService, private dialog: MdDialog) {
-    const avatarsSafeUrl = sanitizer.bypassSecurityTrustResourceUrl('../assets/avatars.svg');
+    const avatarsSafeUrl = sanitizer.bypassSecurityTrustResourceUrl('./assets/avatars.svg');
     iconRegistry.addSvgIconSetInNamespace('avatars', avatarsSafeUrl);
   }
 

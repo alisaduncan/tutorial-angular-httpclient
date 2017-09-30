@@ -12,7 +12,7 @@ import { DialogComponent } from './dialog/dialog.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  private users: User[] = [];
+  public users: User[] = [];
   private selectedUser: User = new User;
 
   constructor(iconRegistry: MdIconRegistry, sanitizer: DomSanitizer, private userService: UserService, private dialog: MdDialog) {
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
     );
   }
 
-  private openAdminDialog() {
+  public openAdminDialog() {
     this.dialog.open(DialogComponent).afterClosed()
       .filter(result => !!result)
       .map(result => {

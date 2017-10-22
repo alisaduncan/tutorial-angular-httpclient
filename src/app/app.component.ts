@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
       .filter(result => !!result)
       .map(result => {
         result.id = this.users.length + 1;
-        result.avatar = `svg-${result.id}`;
+        result.avatar = 'svg-6';
         return result;
       })
       .subscribe(user => {

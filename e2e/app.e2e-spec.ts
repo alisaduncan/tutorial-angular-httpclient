@@ -7,8 +7,8 @@ describe('tutorial-angular-httpclient App', () => {
     page = new TutorialAngularHttpclientPage();
   });
 
-  xit('should display welcome message', () => {
+  it('should display the title', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+    expect(page.getToolbarText()).toEqual('Angular HttpClient');
   });
 });

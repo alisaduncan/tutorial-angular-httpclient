@@ -5,7 +5,7 @@ export class TutorialAngularHttpclientPage {
     return browser.get('/');
   }
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+  getToolbarText() {
+    return element(by.css('body md-toolbar')).getText();
   }
 }

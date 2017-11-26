@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MdIconRegistry, MdDialog } from '@angular/material';
+import { MatIconRegistry, MatDialog } from '@angular/material';
 
 import { UserService } from './user.service';
 import { User } from './user';
 import { DialogComponent } from './dialog/dialog.component';
 
 @Component({
-  selector: 'body',
+  selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   public users: User[] = [];
   private selectedUser: User = new User;
 
-  constructor(iconRegistry: MdIconRegistry, sanitizer: DomSanitizer, private userService: UserService, private dialog: MdDialog) {
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private userService: UserService, private dialog: MatDialog) {
     const avatarsSafeUrl = sanitizer.bypassSecurityTrustResourceUrl('./assets/avatars.svg');
     iconRegistry.addSvgIconSetInNamespace('avatars', avatarsSafeUrl);
   }

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdToolbarModule, MdListModule, MdIconModule, MdButtonModule, MdDialogModule, MdDialogRef, MdInputModule } from '@angular/material';
+import { MatToolbarModule, MatListModule, MatIconModule, MatButtonModule, MatDialogModule, MatDialogRef, MatInputModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 
@@ -23,12 +23,12 @@ import { AuthInterceptor } from './auth.interceptor';
     HttpClientModule,
     HttpModule,
     BrowserAnimationsModule,
-    MdToolbarModule,
-    MdListModule,
-    MdIconModule,
-    MdButtonModule,
-    MdDialogModule,
-    MdInputModule,
+    MatToolbarModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatInputModule,
     FlexLayoutModule,
     FormsModule
   ],

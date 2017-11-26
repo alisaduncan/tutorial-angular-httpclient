@@ -3,11 +3,7 @@
   flex: 1;
 }
 
-md-sidenav {
-  width: 25%;
-}
-
-.avatar {
+mat-icon.avatar {
   overflow: hidden;
   width: 64px;
   height: 64px;
@@ -24,3 +20,4 @@ md-sidenav {
   right: 16px;
   bottom: 16px;
 }
+

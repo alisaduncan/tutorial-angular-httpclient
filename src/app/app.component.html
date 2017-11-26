@@ -1,19 +1,19 @@
 <div fxLayout="column" fxFlex>
-  <md-toolbar color="primary">
+  <mat-toolbar color="primary">
     Angular HttpClient
-  </md-toolbar>
+  </mat-toolbar>
 
   
-  <md-nav-list>
-    <md-list-item *ngFor="let user of users" (click)="selectedUser = user">
-       <md-icon md-list-avatar svgIcon="avatars:{{user.avatar}}" class="avatar"></md-icon> 
-      <h1 md-line>{{user.name}}</h1>
-      <h6 md-line>{{user.bs}}</h6>
-    </md-list-item>
-  </md-nav-list>
+  <mat-nav-list>
+    <mat-list-item *ngFor="let user of users" (click)="selectedUser = user">
+       <mat-icon matListAvatar svgIcon="avatars:{{user.avatar}}" class="avatar"></mat-icon> 
+      <h1 mat-line>{{user.name}}</h1>
+      <h6 mat-line>{{user.bs}}</h6>
+    </mat-list-item>
+  </mat-nav-list>
 
-  <button md-fab (click)="openAdminDialog()" class="fab-bottom-right">
-    <md-icon>add</md-icon>
+  <button mat-fab (click)="openAdminDialog()" class="fab-bottom-right">
+    <mat-icon>add</mat-icon>
   </button>
   
 </div>

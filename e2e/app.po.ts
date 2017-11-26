@@ -6,6 +6,6 @@ export class TutorialAngularHttpclientPage {
   }
 
   getToolbarText() {
-    return element(by.css('body md-toolbar')).getText();
+    return element(by.css('body mat-toolbar')).getText();
   }
 }

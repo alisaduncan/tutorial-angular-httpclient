@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry, MatDialog } from '@angular/material';
+import 'rxjs/add/operator/filter';
 
 import { UserService } from './user.service';
 import { User } from './user';

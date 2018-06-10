@@ -1,19 +1,31 @@
 <h3 mat-dialog-title>Add a user</h3>
 
-
-<form #form="ngForm" (ngSubmit)="dialogRef.close(form.value)" ngNativeValidate>
+<mat-dialog-content>
+  <form #form="ngForm">
     <div fxLayout="column" fxLayoutGap="8px">
-      <mat-input-container>
-        <input matInput ngModel name="name" placeholder="Full name" required>
-      </mat-input-container>
+        <mat-form-field>
+            <input matInput ngModel name="name" placeholder="Full name" required>
+          </mat-form-field>
 
-      <mat-input-container>
-        <input matInput ngModel name="bs" placeholder="Corporate Jargon BS" required>
-      </mat-input-container>
+          <mat-form-field>
+            <input matInput ngModel name="bs" placeholder="Corporate Jargon BS" required>
+          </mat-form-field>
+    </div>
+  </form>
+
+</mat-dialog-content>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()">Cancel</button>
+  <button mat-button color="accent" [mat-dialog-close]="form.value">Save User</button>
+</div>
+<!-- <form #form="ngForm" (ngSubmit)="dialogRef.close(form.value)" ngNativeValidate>
+    <div fxLayout="column" fxLayoutGap="8px">
+
     </div>
 
   <mat-dialog-actions align="end">
     <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
     <button mat-button color="accent">Save User</button>
   </mat-dialog-actions>
-</form>
+</form> -->

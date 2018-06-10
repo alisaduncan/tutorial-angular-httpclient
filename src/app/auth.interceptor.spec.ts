@@ -40,8 +40,9 @@ describe('AuthInterceptor', () => {
                 }
             );
 
-            const req = httpMock.expectOne(req => 
-                req.headers.has('Authorization') && req.headers.get('Authorization') === `${mockAuthService.tokenType} ${mockAuthService.tokenValue}`);
+            const req = httpMock.expectOne(r =>
+                r.headers.has('Authorization') &&
+                r.headers.get('Authorization') === `${mockAuthService.tokenType} ${mockAuthService.tokenValue}`);
             expect(req.request.method).toEqual('GET');
 
             req.flush({ hello: 'world' });

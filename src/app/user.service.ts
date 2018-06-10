@@ -1,9 +1,9 @@
+
+import { throwError as observableThrowError, Observable } from 'rxjs';
+
+import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/catch'; 
 
 
 import { User } from './user';
@@ -17,11 +17,12 @@ export class UserService {
   public getUsers(): Observable<User[]> {
     return this.http.get<Array<any>>(this.apiEndpoint, {
       headers: new HttpHeaders().set('Accept', 'application/json')
-    })
-    .map(this.mapUsers)
-    .catch( error => {
-      return Observable.throw('An error occurred');
-    });
+    }).pipe(
+      map(this.mapUsers),
+      catchError(error => {
+        return observableThrowError('An error occurred');
+      }),
+    );
   }
 
   public addUser(user: User): Observable<User> {
@@ -33,23 +34,24 @@ export class UserService {
     };
 
     return this.http.post<any>(this.apiEndpoint, postBody, {
-        headers: new HttpHeaders().set('Accept', 'application/json')
+      headers: new HttpHeaders().set('Accept', 'application/json')
         .set('Content-Type', 'application/json'),
-    })
-    .map ( response => {
-      return {
-        name: response.name,
-        bs: response.company.bs
-      }
-    })
-    .catch(error => {
-      return Observable.throw('An error occurred')
-    });
+    }).pipe(
+      map(response => {
+        return {
+          name: response.name,
+          bs: response.company.bs
+        };
+      }),
+      catchError(error => {
+        return observableThrowError('An error occurred');
+      }),
+    );
   }
 
   private mapUsers(body: Array<any>) {
-    let filteredBody = body.filter(user => user['id'] <= 5);
-    let users: User[] = [];
+    const filteredBody = body.filter(user => user['id'] <= 5);
+    const users: User[] = [];
     filteredBody.forEach(element => {
       users.push({
         id: element.id,

@@ -1,8 +1,7 @@
 import { TestBed, getTestBed, inject } from '@angular/core/testing';
 import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable, of } from 'rxjs';
 
 import { UserService } from './user.service';
 import { User } from './user';
@@ -53,63 +52,63 @@ describe('UserService', () => {
       httpMock.verify();
     }));
 
-    it('returns User[] mapped to correct properties', inject([HttpClient, HttpTestingController], (http: HttpClient, httpMock: HttpTestingController) => {
-      const mockResponse = [
-        {
-          id: 1,
-          name: 'Test Name',
-          company: {
-            bs: 'synergy'
+    it('returns User[] mapped to correct properties', inject([HttpClient, HttpTestingController],
+      (http: HttpClient, httpMock: HttpTestingController) => {
+        const mockResponse = [
+          {
+            id: 1,
+            name: 'Test Name',
+            company: {
+              bs: 'synergy'
+            }
           }
-        }
-      ];
+        ];
 
-      const expectedResults:User[] = [
-        {
-          id: 1,
-          name: 'Test Name',
-          bs: 'synergy',
-          avatar: 'svg-1'
-        }
-      ];
+        const expectedResults: User[] = [
+          {
+            id: 1,
+            name: 'Test Name',
+            bs: 'synergy',
+            avatar: 'svg-1'
+          }
+        ];
 
-      const userService = getTestBed().get(UserService);
-      userService.getUsers().subscribe(
-        actualResults => {
-          expect(actualResults).toEqual(expectedResults);
-        }
-      );
+        const userService = getTestBed().get(UserService);
+        userService.getUsers().subscribe(
+          actualResults => {
+            expect(actualResults).toEqual(expectedResults);
+          }
+        );
 
-      const req = httpMock.expectOne(userService.apiEndpoint);
-      expect(req.request.method).toEqual('GET');
+        const req = httpMock.expectOne(userService.apiEndpoint);
+        expect(req.request.method).toEqual('GET');
 
-      req.flush(mockResponse);
-      httpMock.verify();
-    }));
+        req.flush(mockResponse);
+        httpMock.verify();
+      }));
 
-    it('should throw with an error message when API returns an error', inject([HttpClient, HttpTestingController], (http: HttpClient, httpMock: HttpTestingController) => {
-      const userService = getTestBed().get(UserService);
-      userService.getUsers()
-      .catch(actualError => {
-        expect(Observable.of(actualError)).toBeTruthy();
-        expect(actualError).not.toBeNull;
-        expect(actualError).not.toBeUndefined;
-        return Observable.of(actualError);
-      })
-      .subscribe();
+    it('should throw with an error message when API returns an error',
+      inject([HttpClient, HttpTestingController], (http: HttpClient, httpMock: HttpTestingController) => {
+        const userService = getTestBed().get(UserService);
+        userService.getUsers().subscribe({
+          error(actualError) {
+            expect(of(actualError)).toBeTruthy();
+            expect(actualError).not.toBeNull();
+            expect(actualError).not.toBeUndefined();
+          }
+        });
 
-      const req = httpMock.expectOne(userService.apiEndpoint);
-      expect(req.request.method).toEqual('GET');
+        const req = httpMock.expectOne(userService.apiEndpoint);
+        expect(req.request.method).toEqual('GET');
 
-      req.flush({errorMessage: 'Uh oh!'}, { status: 500, statusText: 'Server Error'});
-      httpMock.verify();
-    }));
+        req.flush({ errorMessage: 'Uh oh!' }, { status: 500, statusText: 'Server Error' });
+        httpMock.verify();
+      }));
   });
 
-describe('adding a new user', () => {
+  describe('adding a new user', () => {
     it('returns the newly added user', inject([HttpClient, HttpTestingController], (http: HttpClient, httpMock: HttpTestingController) => {
-      const mockResponse =
-        {
+      const mockResponse = {
           id: 100,
           name: 'A new user',
           company: {
@@ -134,35 +133,36 @@ describe('adding a new user', () => {
         }
       );
 
-      const req = httpMock.expectOne((req) => req.url === userService.apiEndpoint && req.headers.has('Content-Type'));
+      const req = httpMock.expectOne(r => r.url === userService.apiEndpoint && r.headers.has('Content-Type'));
       expect(req.request.method).toEqual('POST');
 
       req.flush(mockResponse);
       httpMock.verify();
     }));
 
-    it('should throw with an error message when API returns an error', inject([HttpClient, HttpTestingController], (http: HttpClient, httpMock: HttpTestingController) => {
-      const expectedResult: User = {
-        id: 1,
-        name: 'A new user',
-        bs: 'blah blah',
-        avatar: 'svg-1'
-      };
-      
-      const userService = getTestBed().get(UserService);
-      userService.addUser(expectedResult)
-      .catch(actualError => {
-        expect(Observable.of(actualError)).toBeTruthy();
-        expect(actualError).toBeTruthy();
-        return Observable.of(actualError);
-      })
-      .subscribe();
+    it('should throw with an error message when API returns an error',
+      inject([HttpClient, HttpTestingController], (http: HttpClient, httpMock: HttpTestingController) => {
+        const expectedResult: User = {
+          id: 1,
+          name: 'A new user',
+          bs: 'blah blah',
+          avatar: 'svg-1'
+        };
 
-      const req = httpMock.expectOne((req) => req.url === userService.apiEndpoint && req.headers.has('Content-Type'));
-      expect(req.request.method).toEqual('POST');
+        const userService = getTestBed().get(UserService);
+        userService.addUser(expectedResult)
+          .subscribe({
+            error(actualError) {
+              expect(of(actualError)).toBeTruthy();
+              expect(actualError).toBeTruthy();
+            }
+          });
 
-      req.flush({errorMessage: 'Uh oh!'}, { status: 500, statusText: 'Server Error'});
-      httpMock.verify();
-    }));
+        const req = httpMock.expectOne(r => r.url === userService.apiEndpoint && r.headers.has('Content-Type'));
+        expect(req.request.method).toEqual('POST');
+
+        req.flush({ errorMessage: 'Uh oh!' }, { status: 500, statusText: 'Server Error' });
+        httpMock.verify();
+      }));
   });
 });

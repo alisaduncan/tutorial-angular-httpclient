@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
 import { AuthInterceptor } from './auth.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { UsersModule } from './users/users.module';
+import { MatToolbarModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { UsersModule } from './users/users.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    UsersModule
+    UsersModule,
+    MatToolbarModule
   ],
   providers: [UserService, AuthService,
     {

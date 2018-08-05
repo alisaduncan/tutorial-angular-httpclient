@@ -1,4 +1,4 @@
-<div fxLayout="column" fxFlex>
+<div fxLayout="column" fxFlex class="users">
   <mat-toolbar color="primary">
     Angular HttpClient
   </mat-toolbar>
@@ -6,13 +6,13 @@
 
   <mat-nav-list>
     <mat-list-item *ngFor="let user of users" (click)="selectedUser = user">
-      <mat-icon matListAvatar svgIcon="avatars:{{user.avatar}}" class="avatar"></mat-icon>
+      <mat-icon matListAvatar svgIcon="avatars:{{user.avatar}}" class="users__avatar"></mat-icon>
       <h1 mat-line>{{ user.name }}</h1>
       <h6 mat-line>{{ user.bs }}</h6>
     </mat-list-item>
   </mat-nav-list>
 
-  <button mat-fab (click)="openAdminDialog()" class="fab-bottom-right">
+  <button mat-fab (click)="openAdminDialog()" class="users__fab-bottom-right">
     <mat-icon>add</mat-icon>
   </button>
 

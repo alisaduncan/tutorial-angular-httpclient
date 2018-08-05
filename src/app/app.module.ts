@@ -1,44 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MatToolbarModule,
-  MatListModule,
-  MatIconModule,
-  MatButtonModule,
-  MatDialogModule,
-  MatDialogRef,
-  MatInputModule
-} from '@angular/material';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { UserService } from './user.service';
 import { AuthService } from './auth.service';
-import { DialogComponent } from './dialog/dialog.component';
 import { AuthInterceptor } from './auth.interceptor';
+import { AppRoutingModule } from './app-routing.module';
+import { UsersModule } from './users/users.module';
+import { MatToolbarModule } from '@angular/material';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    DialogComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     HttpClientModule,
-    HttpModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatListModule,
-    MatIconModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatInputModule,
-    FlexLayoutModule,
-    FormsModule
+    UsersModule,
+    MatToolbarModule
   ],
   providers: [UserService, AuthService,
     {
@@ -46,7 +27,6 @@ import { AuthInterceptor } from './auth.interceptor';
       useClass: AuthInterceptor,
       multi: true
     }],
-  entryComponents: [DialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

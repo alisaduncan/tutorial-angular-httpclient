@@ -8,7 +8,9 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 import { User } from './user';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService {
   public apiEndpoint = 'https://jsonplaceholder.typicode.com/users';
 
@@ -50,16 +52,14 @@ export class UserService {
   }
 
   private mapUsers(body: Array<any>) {
-    const filteredBody = body.filter(user => user['id'] <= 5);
-    const users: User[] = [];
-    filteredBody.forEach(element => {
-      users.push({
-        id: element.id,
-        name: element.name,
-        bs: element.company.bs,
-        avatar: `svg-${element.id}`
+    return body.filter(u => u['id'] <= 5)
+      .map( u => {
+        return <User>{
+          id: u.id,
+          name: u.name,
+          bs: u.company.bs,
+          avatar: `svg-${u.id}`
+        };
       });
-    });
-    return users;
   }
 }

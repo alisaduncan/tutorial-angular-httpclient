@@ -1,7 +1,6 @@
 import { TestBed, getTestBed, inject } from '@angular/core/testing';
-import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Observable, of } from 'rxjs';
 
 import { UserService } from './user.service';
 import { User } from './user';
@@ -90,13 +89,13 @@ describe('UserService', () => {
     it('should throw with an error message when API returns an error',
       inject([HttpClient, HttpTestingController], (http: HttpClient, httpMock: HttpTestingController) => {
         const userService = getTestBed().get(UserService);
-        userService.getUsers().subscribe({
-          error(actualError) {
-            expect(of(actualError)).toBeTruthy();
-            expect(actualError).not.toBeNull();
-            expect(actualError).not.toBeUndefined();
+        userService.getUsers().subscribe(
+          response => fail('should have failed with 500 status'),
+          error => {
+            expect(error).toBeTruthy();
+            expect(error.status).toEqual(500);
           }
-        });
+        );
 
         const req = httpMock.expectOne(userService.apiEndpoint);
         expect(req.request.method).toEqual('GET');
@@ -151,12 +150,13 @@ describe('UserService', () => {
 
         const userService = getTestBed().get(UserService);
         userService.addUser(expectedResult)
-          .subscribe({
-            error(actualError) {
-              expect(of(actualError)).toBeTruthy();
-              expect(actualError).toBeTruthy();
+          .subscribe(
+            response => fail('should fail with status 500 error'),
+            (error: HttpErrorResponse) => {
+              expect(error).toBeTruthy();
+              expect(error.status).toEqual(500);
             }
-          });
+          );
 
         const req = httpMock.expectOne(r => r.url === userService.apiEndpoint && r.headers.has('Content-Type'));
         expect(req.request.method).toEqual('POST');

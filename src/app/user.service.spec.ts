@@ -1,7 +1,6 @@
 import { TestBed, getTestBed, inject } from '@angular/core/testing';
-import { HttpClient, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Observable, of } from 'rxjs';
 
 import { UserService } from './user.service';
 import { User } from './user';

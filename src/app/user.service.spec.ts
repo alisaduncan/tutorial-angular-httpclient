@@ -91,7 +91,7 @@ describe('UserService', () => {
         const userService = getTestBed().get(UserService);
         userService.getUsers().subscribe(
           response => fail('should have failed with 500 status'),
-          error => {
+         (error: HttpErrorResponse) => {
             expect(error).toBeTruthy();
             expect(error.status).toEqual(500);
           }

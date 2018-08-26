@@ -1,5 +1,5 @@
 
-import { throwError as observableThrowError, Observable } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 
 import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
@@ -22,7 +22,7 @@ export class UserService {
     }).pipe(
       map(this.mapUsers),
       catchError(error => {
-        return observableThrowError('An error occurred');
+        return throwError(error);
       }),
     );
   }
@@ -46,7 +46,7 @@ export class UserService {
         };
       }),
       catchError(error => {
-        return observableThrowError('An error occurred');
+        return throwError(error);
       }),
     );
   }

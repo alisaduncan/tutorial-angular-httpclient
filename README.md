@@ -2,10 +2,12 @@
 
 A working version of the application can be found at [https://alisaduncan.github.io/tutorial-angular-httpclient/](https://alisaduncan.github.io/tutorial-angular-httpclient/)
 
+I wrote a post about [Http interceptors and writing unit tests on The Practical Dev](https://dev.to/alisaduncan/intercepting-http-requests---using-and-testing-angulars-httpclient).
+
 
 This project was an opportunity for me to play with Angular, RxJS, and Material. The app calls [JSONPlaceholder](https://jsonplaceholder.typicode.com/) API to retrieve users and POST a new user. The code contains examples on utilizing Angular's HttpClient and corresponding unit tests. Unit tests for the view have been disabled for now.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.2.
 
 ## Prerequisites
 
@@ -17,6 +19,6 @@ Run `npm start` to start the application. It will automatically open a browser w
 
 ## Running Tests
 
-Run `npm run tests` to run the unit tests in watch mode. Run `npm run tests -- --single-run` to run the test just once.
+Run `npm run tests` to run the unit tests in watch mode. Run `npm run tests -- --watch false` or `ng test --watch false` to run the test just once.
 
 e2e tests are not supported yet.
